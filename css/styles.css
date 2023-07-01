@@ -1205,7 +1205,6 @@ h1, .h1 {
 }
 
 h2, .h2, h3, .h3, h4, .h4 {
-    margin-top: var(--vspace-2_5);
     margin-bottom: var(--vspace-0_5);
 }
 
@@ -2983,8 +2982,8 @@ body.search-is-visible {
     }
 }
 
-#danceability, #energy, #loudness, #duration, #explicit {
-    margin-left: 200px;
+#danceability, #energy, #loudness, #duration, #explicit, #graph {
+    margin-left: auto;
     margin-right: auto;
 }
 

@@ -94,8 +94,8 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     );
   
     const plot = Plot.plot({
-      width: 1500,
-      height: 600,
+      width: 3000,
+      height: 1200,
       margin: 50,
       marginLeft: 60,
       marginRight: 40,

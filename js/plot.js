@@ -16,9 +16,6 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     width: 1500,
     height: 500,
     margin: 50,
-    marginLeft: 60,
-    marginRight: 40,
-    marginBottom: 40,
     marks: [
       Plot.line(processedData, {
         x: 'epoca',
@@ -49,7 +46,8 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
-      label: 'Época',
+      label: '',
+      
     },
     y: {
       axis: false,
@@ -60,9 +58,6 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     width: 1500,
     height: 500,
     margin: 50,
-    marginLeft: 60,
-    marginRight: 40,
-    marginBottom: 40,
     marks: [
       Plot.line(processedData, {
         x: 'epoca',
@@ -93,7 +88,7 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
-      label: 'Época',
+      label: '',
     },
     y: {
       axis: false,
@@ -104,9 +99,6 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     width: 1500,
     height: 500,
     margin: 50,
-    marginLeft: 60,
-    marginRight: 40,
-    marginBottom: 40,
     marks: [
       Plot.line(processedData, {
         x: 'epoca',
@@ -137,7 +129,7 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
-      label: 'Época',
+      label: '',
     },
     y: {
       axis: false,
@@ -148,9 +140,6 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     width: 1500,
     height: 500,
     margin: 50,
-    marginLeft: 60,
-    marginRight: 40,
-    marginBottom: 40,
     marks: [
       Plot.line(processedData, {
         x: 'epoca',
@@ -186,7 +175,7 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
-      label: 'Época',
+      label: '',
     },
     y: {
       axis: false,
@@ -197,9 +186,6 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     width: 1500,
     height: 500,
     margin: 50,
-    marginLeft: 60,
-    marginRight: 40,
-    marginBottom: 40,
     marks: [
       Plot.line(processedData, {
         x: 'epoca',
@@ -230,7 +216,7 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
-      label: 'Época',
+      label: '',
     },
     y: {
       axis: false,
