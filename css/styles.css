@@ -343,7 +343,7 @@ textarea {
 }
 
 .row {
-    width: 92%;
+    width: 94%;
     max-width: var(--width-grid-max);
     margin: 0 auto;
     display: -ms-flexbox;
@@ -2810,6 +2810,7 @@ body.search-is-visible {
 
 .s-footer__main {
     padding-bottom: var(--vspace-0_5);
+    padding-top: 400px;
 }
 
 .s-footer__main ul li {
@@ -2995,3 +2996,23 @@ body.search-is-visible {
 #gtitle{
     margin-left: 180px;
 }
+
+
+.iframe-container {
+    position: relative;
+    width: 100%;
+    padding-top:8%;
+    padding-bottom: 50%; /* Ajusta este valor según tus necesidades para controlar la altura relativa */
+    height: 200%;
+
+  }
+  
+  .iframe-container iframe {
+    position: absolute;
+    /* width: 100%;
+    height: 100%; */
+    width: 2000px;
+    height: 1000px;
+    border: none;
+  }
+  

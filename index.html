@@ -9,12 +9,35 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="RecordPlayer-master/css/normalize.css" />
+
+    <link rel="stylesheet" href="css/styles.css"> 
+
+
+    <link rel="stylesheet" type="text/css" href="RecordPlayer-master/css/style.css" />
+
+
+
+    <script src="RecordPlayer-master/js/modernizr.custom.js"></script>
 
     <script src="js/modernizr.js"></script>
     <script defer src="js/fontawesome/all.min.js"></script>
 
+
+    <!-- <link rel="stylesheet" href="RecordPlayer-master/css/normalize.css" />
+		<link rel="stylesheet" href="RecordPlayer-master/css/style.css" />
+		<script src="RecordPlayer-master/js/modernizr.custom.js"></script> -->
+
     <link rel="icon" href="images/paglogo.png">
+   
+    
+    <base href="RecordPlayer-master">
+
+    <style>
+        .inserted-html {
+            width: 100%;
+        }
+    </style>
 
 </head>
 
@@ -82,11 +105,24 @@
                             <h5 id="gtitle">¿Cuántas canciones explicitas hay en el top 10?</h5>
                             <div id="explicit"></div>
 
+                               
+
                             <span id="datos">Datos otorgados por Spotify</span>
                             <p id="datos">Visualización por Federico Giorgi</p>
                             <br>
                             <h2>¡Recuerda las canciones mas populares de cada época!</h2>
                             <p>Sumergete en un viaje en el tiempo a través de la música.</p>
+
+                            <div class="iframe-container">
+                                <iframe src="RecordPlayer-master/index2.html" frameborder="0"></iframe>
+
+                            </div>
+
+                            <div class="s-content__entry-content">
+                                <!-- Contenido del artículo -->
+                                <div id="contenido-dinamico"></div> <!-- Contenedor para el contenido HTML cargado dinámicamente -->
+                            </div>
+
                         </div>
 
                         <div class="s-content__entry-meta">
@@ -222,6 +258,8 @@
                 <a class="smoothscroll" title="Back to Top" href="#top">
                     <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M7.5 1.5l.354-.354L7.5.793l-.354.353.354.354zm-.354.354l4 4 .708-.708-4-4-.708.708zm0-.708l-4 4 .708.708 4-4-.708-.708zM7 1.5V14h1V1.5H7z" fill="currentColor"></path></svg>
                 </a>
+
+
             </div>
         </div> 
 
@@ -235,6 +273,29 @@
     <script src="js/main.js"></script>
     <script src="js/plot.js"></script>
     <script src="test.js"></script>
+
+
+
+    <script src="RecordPlayer-master/js/imagesloaded.pkgd.min.js"></script>
+    <script src="RecordPlayer-master/js/masonry.pkgd.min.js"></script>
+    <script src="RecordPlayer-master/js/classie.js"></script>
+    <script src="RecordPlayer-master/js/dynamics.min.js"></script>
+    <script src="jRecordPlayer-master/s/abbey-load.js"></script>
+    <script src="RecordPlayer-master/js/main2.js"></script>
+
+    <!-- <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "RecordPlayer-master/index2.html", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("contenido-dinamico").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        });
+    </script> -->
+    
 
 </body>
 
