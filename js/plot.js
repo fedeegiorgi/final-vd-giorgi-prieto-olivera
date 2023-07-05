@@ -81,9 +81,12 @@ function handleStepEnter(response) {
   // Ocultar todos los gráficos al inicio
   d3.selectAll(".chart").style("opacity", 0);
 
-  // Mostrar el gráfico actual con un retraso de 100ms
+  // Mostrar el gráfico actual con una transición gradual
   const currentChartId = `#chart-${index}`;
-  d3.select(currentChartId).style("opacity", 1);
+  d3.select(currentChartId)
+    .transition()
+    .duration(500) // Duración de la transición en milisegundos
+    .style("opacity", 1);
 
   // Mostrar el gráfico actual como el gráfico fijo (fixed-chart)
   d3.select(currentChartId).classed("fixed-chart", true);
@@ -92,10 +95,11 @@ function handleStepEnter(response) {
   for (let i = 1; i < index; i++) {
     const previousChartId = `#chart-${i}`;
     d3.select(previousChartId)
-      .style("opacity", 1) // Ajusta la opacidad a 0 para ocultar los gráficos anteriores
+      .style("opacity", 1)
       .classed("fixed-chart", false);
   }
 }
+
 
 
 
