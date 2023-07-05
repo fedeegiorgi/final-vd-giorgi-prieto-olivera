@@ -31,7 +31,15 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
         title: d => d.danceability,
         tooltip: d => d.danceability,
       }),
+      Plot.axisX({fontSize: 16, fontWeight: 'bold', label:null, domain:[0,1], ticks:[0,0.5,1], tickFormat:d => {
+        if (d === 0) return '0';
+        if (d === 0.5) return '0.5';
+        if (d === 1) return '1';
+        return d3.format('.1f')(d);
+      } }),
+      Plot.axisY({fontSize: 16, fontWeight: 'bold'})
     ],
+    
     y: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
       label: null,
@@ -66,6 +74,13 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
         title: d => d.energy,
         tooltip: d => d.energy,
       }),
+      Plot.axisX({fontSize: 16, fontWeight: 'bold', label:null, domain:[0,1], ticks:[0,0.5,1], tickFormat:d => {
+        if (d === 0) return '0';
+        if (d === 0.5) return '0.5';
+        if (d === 1) return '1';
+        return d3.format('.1f')(d);
+      } }),
+      Plot.axisY({fontSize: 16, fontWeight: 'bold'})
     ],
     y: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
@@ -101,6 +116,8 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
         title: d => d.loudness,
         tooltip: d => d.loudness,
       }),
+      Plot.axisX({fontSize: 16, fontWeight: 'bold', label:null, domain: [-12, -1], ticks: [-12, -1]}),
+      Plot.axisY({fontSize: 16, fontWeight: 'bold'}),
     ],
     y: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
@@ -138,6 +155,8 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
           return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
         },
       }),
+      Plot.axisX({fontSize: 16, fontWeight: 'bold', label:null, domain: [1, 6], ticks: [1, 6], tickFormat: 'd'}),
+      Plot.axisY({fontSize: 16, fontWeight: 'bold'}),
     ],
     y: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
@@ -166,6 +185,7 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
         height: 20,
         src: d => d.image,
       }),
+      Plot.axisY({fontSize: 16, fontWeight: 'bold'}),
     ],
     y: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],

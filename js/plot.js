@@ -132,7 +132,7 @@ function createChartDanceability() {
         dy: -10,
         fill: '#000000',
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 16,
       }),
       Plot.dot(processedData.filter((d, i) => i => 0 && d.danceability !== processedData[i - 1].danceability), {
         x: 'epoca',
@@ -142,6 +142,7 @@ function createChartDanceability() {
         title: d => d.danceability,
         tooltip: d => d.danceability,
       }),
+      Plot.axisX({fontSize: 16, fontWeight: 'bold'}),
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
@@ -178,7 +179,7 @@ function createChartEnergy() {
         dy: -10,
         fill: '#000000',
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 16,
       }),
       Plot.dot(processedData.filter((d, i) => i => 0 && d.energy !== processedData[i - 1].energy), {
         x: 'epoca',
@@ -188,6 +189,7 @@ function createChartEnergy() {
         title: d => d.energy,
         tooltip: d => d.energy,
       }),
+      Plot.axisX({fontSize: 16, fontWeight: 'bold'}),
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
@@ -223,7 +225,7 @@ function createChartLoudness() {
         dy: -10,
         fill: '#000000',
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 16,
       }),
       Plot.dot(processedData.filter((d, i) => i => 0 && d.loudness !== processedData[i - 1].loudness), {
         x: 'epoca',
@@ -233,6 +235,7 @@ function createChartLoudness() {
         title: d => d.loudness,
         tooltip: d => d.loudness,
       }),
+      Plot.axisX({fontSize: 16, fontWeight: 'bold'}),
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
@@ -273,7 +276,7 @@ function createChartDuration() {
         dx: 3,
         fill: '#000000',
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 16,
       }),
       Plot.dot(processedData.filter((d, i) => i => 0 && d.duration !== processedData[i - 1].duration), {
         x: 'epoca',
@@ -283,6 +286,7 @@ function createChartDuration() {
         title: d => d.duration / 60000,
         tooltip: d => d.duration / 60000,
       }),
+      Plot.axisX({fontSize: 16, fontWeight: 'bold'}),
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
@@ -318,7 +322,7 @@ function createChartExplicit() {
         dy: -10,
         fill: '#000000',
         fontWeight: 'bold',
-        fontSize: 14,
+        fontSize: 16,
       }),
       Plot.dot(processedData.filter((d, i) => i => 0 && d.explicit !== processedData[i - 1].explicit), {
         x: 'epoca',
@@ -328,6 +332,7 @@ function createChartExplicit() {
         title: d => d.explicit,
         tooltip: d => d.explicit,
       }),
+      Plot.axisX({fontSize: 16, fontWeight: 'bold'}),
     ],
     x: {
       domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
