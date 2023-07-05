@@ -31,6 +31,29 @@ window.addEventListener("resize", scroller.resize);
 
 }
 
+function init() {
+  setupStickyfill();
+
+  $step = scrolly.selectAll(".step");
+
+  scroller
+    .setup({
+      step: ".step",
+      offset: 0.6,
+      debug: false,
+    })
+    .onStepEnter(handleStepEnter)
+    .onStepExit(handleStepExit);
+
+  window.addEventListener("resize", scroller.resize);
+
+  createChartDanceability();
+  createChartEnergy();
+  createChartLoudness();
+  createChartDuration();
+  createChartExplicit();
+}
+
 d3.csv('input/datasc.csv', d3.autoType).then(data => {
   nestedData = d3.groups(data, d => d.epoca);
   processedData = nestedData.map(([epoca, values]) => {

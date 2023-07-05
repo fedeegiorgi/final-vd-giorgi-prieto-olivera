@@ -1,115 +1,183 @@
 d3.csv('input/datasc.csv', d3.autoType).then(data => {
-    const nestedData = d3.groups(data, d => d.epoca);
-    const processedData = nestedData.map(([epoca, values]) => {
+  let count = 0;
+  const nestedData = d3.groups(data, d => d.epoca);
+  const processedData = nestedData.flatMap(([epoca, values]) => {
+    return values.map((d, i) => {
+      const globalIndex = count++;
       return {
         epoca,
-        danceability: d3.mean(values, d => +d.danceability),
-        energy: d3.mean(values, d => +d.energy),
-        loudness_graph: d3.mean(values, d => +1 / Math.abs(d.loudness)),
-        loudness: d3.mean(values, d => +d.loudness),
-        duration: d3.mean(values, d => +d.duration_ms),
-        explicit: d3.sum(values, d => d.explicit === "TRUE"),
+        danceability: d.danceability,
+        energy: d.energy,
+        loudness_graph: 1 / Math.abs(d.loudness),
+        loudness: d.loudness,
+        duration: d.duration_ms,
+        explicit: d.explicit === "TRUE" ? 1 : 0,
+        image: `images/Frame${globalIndex + 1}.svg`,
       };
     });
-  
-    const pmarks = []; // Initialize marks as an empty array
-  
-    pmarks.push(
-      Plot.line(processedData, {
-        x: 'epoca',
-        y: d => d.energy,
-        stroke: '#CCCCCC',
-        strokeWidth: 2,
+  });
+
+  const danceabilityPlot = Plot.plot({
+    width: 1500,
+    height: 500,
+    margin: 50,
+    marks: [
+      Plot.image(processedData, {
+        x: 'danceability',
+        y: 'epoca',
+        width: 20,
+        height: 20,
+        src: d => d.image,
+        title: d => d.danceability,
+        tooltip: d => d.danceability,
+      }),
+    ],
+    y: {
+      domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+      label: null,
+      grid: true,
+    },
+    x: {
+      label: null,
+      domain: [0,1],
+      tickFormat: d => {
+        if (d === 0) return '0';
+        if (d === 0.5) return '0.5';
+        if (d === 1) return '1';
+        return d3.format('.1f')(d);
+      },
+      ticks: [0, 0.5, 1],
+    },
+  });
+
+  d3.select('#danceability1').append(() => danceabilityPlot);
+
+  const energyPlot = Plot.plot({
+    width: 1500,
+    height: 500,
+    margin: 50,
+    marks: [
+      Plot.image(processedData, {
+        x: 'energy',
+        y: 'epoca',
+        width: 20,
+        height: 20,
+        src: d => d.image,
         title: d => d.energy,
         tooltip: d => d.energy,
-      })
-    );
-  
-    pmarks.push(
-      Plot.line(processedData, {
-        x: 'epoca',
-        y: d => d.loudness_graph,
-        stroke: '#CCCCCC',
-        strokeWidth: 2,
+      }),
+    ],
+    y: {
+      domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+      label: null,
+      grid: true,
+    },
+    x: {
+      label: null,
+      domain: [0,1],
+      tickFormat: d => {
+        if (d === 0) return '0';
+        if (d === 0.5) return '0.5';
+        if (d === 1) return '1';
+        return d3.format('.1f')(d);
+      },
+      ticks: [0, 0.5, 1],
+    },
+  });
+
+  d3.select('#energy1').append(() => energyPlot);
+
+  const loudnessPlot = Plot.plot({
+    width: 1500,
+    height: 500,
+    margin: 50,
+    marks: [
+      Plot.image(processedData, {
+        x: 'loudness',
+        y: 'epoca',
+        width: 20,
+        height: 20,
+        src: d => d.image,
         title: d => d.loudness,
         tooltip: d => d.loudness,
-      })
-    );
-  
-    pmarks.push(
-      Plot.line(processedData, {
-        x: 'epoca',
-        y: d => d.duration / 60000,
-        stroke: '#CCCCCC',
-        strokeWidth: 2,
-        title: d => d.duration / 60000,
-        tooltip: d => d.duration / 60000,
-      })
-    );
-  
-    pmarks.push(
-      Plot.line(processedData, {
-        x: 'epoca',
-        y: d => d.explicit,
-        stroke: '#CCCCCC',
-        strokeWidth: 2,
-        title: d => d.explicit,
-        tooltip: d => d.explicit,
-      })
-    );
-  
-    pmarks.push(
-      Plot.line(processedData, {
-        x: 'epoca',
-        y: d => d.danceability,
-        stroke: '#545BFC',
-        strokeWidth: 2,
-        title: d => d.danceability,
-        tooltip: d => d.danceability,
-      })
-    );
-  
-    pmarks.push(
-      Plot.dot(processedData.filter((d, i) => i >= 0 && d.danceability !== processedData[i - 1]?.danceability), {
-        x: 'epoca',
-        y: d => d.danceability,
-        r: 4,
-        fill: '#545BFC',
-        title: d => d.danceability,
-        tooltip: d => d.danceability,
-      })
-    );
-  
-    pmarks.push(
-      Plot.text(processedData, {
-        x: 'epoca',
-        y: d => d.danceability,
-        text: d => d.danceability,
-        textAnchor: 'middle',
-        dy: -10,
-        fill: '#000000',
-        fontWeight: 'bold',
-        fontSize: 14,
-      })
-    );
-  
-    const plot = Plot.plot({
-      width: 3000,
-      height: 1200,
-      margin: 50,
-      marginLeft: 60,
-      marginRight: 40,
-      marginBottom: 40,
-      marks: pmarks,
-      x: {
-        domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
-        label: '',
-      },
-      y: {
-        axis: false,
-      },
-    });
-  
-    d3.select('#graph').append(() => plot);
+      }),
+    ],
+    y: {
+      domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+      label: null,
+      grid: true,
+    },
+    x: {
+      label: null,
+      domain: [-12, -1],
+      ticks: [-12, -1],
+    },
+  });
+
+  d3.select('#loudness1').append(() => loudnessPlot);
+
+  const durationPlot = Plot.plot({
+    width: 1500,
+    height: 500,
+    margin: 50,
+    marks: [
+      Plot.image(processedData, {
+        x: d => d.duration / 60000,
+        y: 'epoca',
+        width: 20,
+        height: 20,
+        src: d => d.image,
+        title: d => {
+          const minutes = Math.floor(d.duration / 60000);
+          const seconds = Math.floor((d.duration % 60000) / 1000);
+          return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        },
+        tooltip: d => {
+          const minutes = Math.floor(d.duration / 60000);
+          const seconds = Math.floor((d.duration % 60000) / 1000);
+          return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        },
+      }),
+    ],
+    y: {
+      domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+      label: null,
+      grid: true,
+    },
+    x: {
+      label: null,
+      domain: [1, 6],
+      ticks: [1, 6],
+      tickFormat: 'd',
+    },
+  });
+
+  d3.select('#duration1').append(() => durationPlot);
+
+  const explicitPlot = Plot.plot({
+    width: 1500,
+    height: 500,
+    margin: 50,
+    marks: [
+      Plot.image(processedData.filter(d => d.explicit > 0), {
+        x: (d, i) => (i+1) * 15,
+        y: 'epoca',
+        width: 20,
+        height: 20,
+        src: d => d.image,
+      }),
+    ],
+    y: {
+      domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+      label: null,
+      grid: true,
+    },
+    x: {
+      label: null,
+      axis: false,
+      domain: [1, 160]
+    },
   });
   
+  d3.select('#explicit1').append(() => explicitPlot);
+});
