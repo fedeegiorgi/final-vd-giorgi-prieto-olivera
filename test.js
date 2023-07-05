@@ -50,7 +50,7 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     },
   });
 
-  d3.select('#danceability').append(() => danceabilityPlot);
+  d3.select('#danceability1').append(() => danceabilityPlot);
 
   const energyPlot = Plot.plot({
     width: 1500,
@@ -85,7 +85,7 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     },
   });
 
-  d3.select('#energy').append(() => energyPlot);
+  d3.select('#energy1').append(() => energyPlot);
 
   const loudnessPlot = Plot.plot({
     width: 1500,
@@ -114,7 +114,7 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     },
   });
 
-  d3.select('#loudness').append(() => loudnessPlot);
+  d3.select('#loudness1').append(() => loudnessPlot);
 
   const durationPlot = Plot.plot({
     width: 1500,
@@ -152,7 +152,7 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     },
   });
 
-  d3.select('#duration').append(() => durationPlot);
+  d3.select('#duration1').append(() => durationPlot);
 
   const explicitPlot = Plot.plot({
     width: 1500,
@@ -179,5 +179,5 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     },
   });
   
-  d3.select('#explicit').append(() => explicitPlot);
+  d3.select('#explicit1').append(() => explicitPlot);
 });
