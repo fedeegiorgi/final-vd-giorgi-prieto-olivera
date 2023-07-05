@@ -3002,7 +3002,7 @@ body.search-is-visible {
     position: relative;
     width: 100%;
     padding-top:8%;
-    padding-bottom: 50%; /* Ajusta este valor según tus necesidades para controlar la altura relativa */
+    padding-bottom: 1700px; /* Ajusta este valor según tus necesidades para controlar la altura relativa */
     height: 200%;
 
   }
@@ -3012,7 +3012,52 @@ body.search-is-visible {
     /* width: 100%;
     height: 100%; */
     width: 2000px;
-    height: 1000px;
+    height: 2300px;
     border: none;
   }
+  
+
+  /* body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  } */
+  
+  #scrolly {
+    height: 500vh;
+    /* overflow-y: scroll; */
+  }
+  
+  /* .article {
+    padding: 10px;
+  }
+   */
+  .step {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* .chart {
+    width: 400px;
+    height: 300px;
+    margin-top: 0px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+  }
+   */
+  
+ 
+  
   

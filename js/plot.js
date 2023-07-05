@@ -1,6 +1,16 @@
+let main = d3.select("main");
+let scrolly = main.select("#scrolly");
+let $figure = scrolly.select("figure");
+let dataChart = [];
+let $step;
+let processedData;
+let nestedData;
+
+let scroller = scrollama();
+
 d3.csv('input/datasc.csv', d3.autoType).then(data => {
-  const nestedData = d3.groups(data, d => d.epoca);
-  const processedData = nestedData.map(([epoca, values]) => {
+  nestedData = d3.groups(data, d => d.epoca);
+  processedData = nestedData.map(([epoca, values]) => {
     return {
       epoca,
       danceability: d3.mean(values, d => +d.danceability),
@@ -11,7 +21,69 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
       explicit: d3.sum(values, d => d.explicit === "TRUE"),
     };
   });
+  init();
+});
 
+
+function handleStepEnter(response) {
+  const { element } = response;
+  const index = parseInt(d3.select(element).attr("data-step"));
+
+  d3.selectAll(".step").classed("active", false);
+  d3.select(element).classed("active", true);
+
+  // Ocultar todos los gráficos al inicio
+  d3.selectAll(".chart").style("opacity", 0);
+
+  // Mostrar el gráfico actual gradualmente
+  const chartId = `#chart-${index}`;
+  const chartFunction = getChartFunction(index);
+  chartFunction(chartId);
+}
+
+function handleStepExit(response) {
+  // Restablecer el gráfico anterior cuando se desplaza hacia abajo
+  const { element } = response;
+  const index = parseInt(d3.select(element).attr("data-step"));
+
+  if (index > 1) {
+    const previousChartId = `#chart-${index - 1}`;
+    d3.select(previousChartId).style("opacity", 1);
+  }
+}
+
+function setupStickyfill() {
+  d3.selectAll(".sticky").each(function () {
+    Stickyfill.add(this);
+  });
+}
+
+function init() {
+  setupStickyfill();
+
+  $step = scrolly.selectAll(".step");
+
+  scroller
+    .setup({
+      step: ".step",
+      offset: 0.6,
+      debug: false,
+    })
+    .onStepEnter(handleStepEnter)
+    .onStepExit(handleStepExit);
+
+  window.addEventListener("resize", scroller.resize);
+}
+
+function handleStepProgress(response) {
+  console.log(response);
+  $figure.style("opacity", response.progress);
+  $step = d3.select(response.element);
+  console.log($step.attr("data-step"));
+
+}
+
+function createChartDanceability() {
   const danceability = Plot.plot({
     width: 1500,
     height: 500,
@@ -52,8 +124,15 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     y: {
       axis: false,
     },
-  });
+  });  
+ 
+  
+  // d3.select("#scrolly figure svg").remove();
+  // d3.select("#scrolly figure").append(() => danceability);
+  d3.select('#danceability').append(() => danceability);
+}
 
+function createChartEnergy() {
   const energy = Plot.plot({
     width: 1500,
     height: 500,
@@ -95,6 +174,11 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     },
   });
 
+  // d3.select("#scrolly figure svg").remove();
+  d3.select('#energy').append(() => energy);
+}
+
+function createChartLoudness() {
   const loudness = Plot.plot({
     width: 1500,
     height: 500,
@@ -135,7 +219,11 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
       axis: false,
     },
   });
+  // d3.select("#scrolly figure svg").remove();
+  d3.select('#loudness').append(() => loudness);
+}
 
+function createChartDuration() {
   const duration = Plot.plot({
     width: 1500,
     height: 500,
@@ -182,6 +270,11 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     },
   });
 
+  // d3.select("#scrolly figure svg").remove();
+  d3.select('#duration').append(() => duration);
+}
+
+function createChartExplicit() {
   const explicit = Plot.plot({
     width: 1500,
     height: 500,
@@ -223,9 +316,8 @@ d3.csv('input/datasc.csv', d3.autoType).then(data => {
     },
   });
 
-  d3.select('#danceability').append(() => danceability);
-  d3.select('#energy').append(() => energy);
-  d3.select('#loudness').append(() => loudness);
-  d3.select('#duration').append(() => duration);
+  // d3.select("#scrolly figure svg").remove();
   d3.select('#explicit').append(() => explicit);
-});
+}
+
+

@@ -23,11 +23,6 @@
     <script src="js/modernizr.js"></script>
     <script defer src="js/fontawesome/all.min.js"></script>
 
-
-    <!-- <link rel="stylesheet" href="RecordPlayer-master/css/normalize.css" />
-		<link rel="stylesheet" href="RecordPlayer-master/css/style.css" />
-		<script src="RecordPlayer-master/js/modernizr.custom.js"></script> -->
-
     <link rel="icon" href="images/paglogo.png">
    
     
@@ -90,22 +85,41 @@
                             <h2>Cada época, en atributos.</h2>
                             <p>En un viaje a través del tiempo, la música ha experimentado cambios significativos en sus características y atributos, 
                                 adaptándose a los gustos y preferencias de cada época causando que el mainstream musical sea testigo de una constante evolución. </p>
+
+
+                            <section id="scrolly">
+                            <article>
+                                <div class="step" data-step="#bailable"> 
+                            
                             <h5 id="gtitle">¿Qué tan bailables son las canciones del top 10?</h5>
+                        </div>
+
+                        <div class="step" data-step="energica"> 
                             <div id="danceability"></div>
                             <br></br>
                             <h5 id="gtitle">¿Qué tan energicas son las canciones del top 10?</h5>
                             <div id="energy"></div>
+                        </div>
+
+                        <div class="step" data-step="ruidosa"> 
                             <br></br>
                             <h5 id="gtitle">¿Qué tan ruidosas son las canciones del top 10?</h5>
                             <div id="loudness"></div>
+                        </div>
+
+                        <div class="step" data-step="duracion"> 
                             <br></br>
                             <h5 id="gtitle">¿Cuánto dura una cancion promedio del top 10?</h5>
                             <div id="duration"></div>
+                        </div>
+
+                        <div class="step" data-step="explicita"> 
                             <br></br>
                             <h5 id="gtitle">¿Cuántas canciones explicitas hay en el top 10?</h5>
                             <div id="explicit"></div>
-
-                               
+                        </div>
+                    </article>
+                </section>
 
                             <span id="datos">Datos otorgados por Spotify</span>
                             <p id="datos">Visualización por Federico Giorgi</p>
@@ -268,34 +282,21 @@
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.contentWindow.js"></script>
+    <script src="https://unpkg.com/scrollama"></script>
+    <!-- <script src="https://d3js.org/d3.v6.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/plotjs/dist/plot.min.js"></script>
+
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://unpkg.com/plotly.js"></script>
+
+    <script src="input/datasc.csv"></script>
+
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
     <script src="js/plot.js"></script>
     <script src="test.js"></script>
 
-
-
-    <script src="RecordPlayer-master/js/imagesloaded.pkgd.min.js"></script>
-    <script src="RecordPlayer-master/js/masonry.pkgd.min.js"></script>
-    <script src="RecordPlayer-master/js/classie.js"></script>
-    <script src="RecordPlayer-master/js/dynamics.min.js"></script>
-    <script src="jRecordPlayer-master/s/abbey-load.js"></script>
-    <script src="RecordPlayer-master/js/main2.js"></script>
-
-    <!-- <script>
-        window.addEventListener("DOMContentLoaded", function() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "RecordPlayer-master/index2.html", true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    document.getElementById("contenido-dinamico").innerHTML = xhr.responseText;
-                }
-            };
-            xhr.send();
-        });
-    </script> -->
-    
 
 </body>
 
