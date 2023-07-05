@@ -6,30 +6,7 @@ let $step;
 let processedData;
 let nestedData;
 
-const scroller = scrollama();
-
-function init() {
-  setupStickyfill();
-
-  $step = scrolly.selectAll(".step");
-
-  scroller
-  .setup({
-    step: ".step",
-    offset: 0.5,
-    once: true,
-  })
-  .onStepEnter(handleStepEnter);
-
-window.addEventListener("resize", scroller.resize);
-
-  createChartDanceability();
-  createChartEnergy();
-  createChartLoudness();
-  createChartDuration();
-  createChartExplicit();
-
-}
+let scroller = scrollama();
 
 function init() {
   setupStickyfill();
@@ -52,6 +29,11 @@ function init() {
   createChartLoudness();
   createChartDuration();
   createChartExplicit();
+  createChartDanceability2();
+  createChartEnergy2();
+  createChartLoudness2();
+  createChartDuration2();
+  createChartExplicit2();
 }
 
 d3.csv('input/datasc.csv', d3.autoType).then(data => {
@@ -101,9 +83,6 @@ function handleStepEnter(response) {
 }
 
 
-
-
-
 function handleStepExit(response) {
   // Restablecer el gráfico anterior cuando se desplaza hacia abajo
   const { element } = response;
@@ -116,13 +95,11 @@ function handleStepExit(response) {
 }
 
 
-
 function setupStickyfill() {
   d3.selectAll(".sticky").each(function () {
     Stickyfill.add(this);
   });
 }
-
 
 
 function handleStepProgress(response) {
@@ -175,10 +152,7 @@ function createChartDanceability() {
       axis: false,
     },
   });  
- 
-  
-  // d3.select("#scrolly figure svg").remove();
-  // d3.select("#scrolly figure").append(() => danceability);
+
   d3.select('#danceability').append(() => danceability);
 }
 
@@ -224,7 +198,6 @@ function createChartEnergy() {
     },
   });
 
-  // d3.select("#scrolly figure svg").remove();
   d3.select('#energy').append(() => energy);
 }
 
@@ -269,7 +242,7 @@ function createChartLoudness() {
       axis: false,
     },
   });
-  // d3.select("#scrolly figure svg").remove();
+
   d3.select('#loudness').append(() => loudness);
 }
 
@@ -320,7 +293,6 @@ function createChartDuration() {
     },
   });
 
-  // d3.select("#scrolly figure svg").remove();
   d3.select('#duration').append(() => duration);
 }
 
@@ -366,8 +338,246 @@ function createChartExplicit() {
     },
   });
 
-  // d3.select("#scrolly figure svg").remove();
   d3.select('#explicit').append(() => explicit);
+}
+
+function createChartDanceability2() {
+  const imagePromises = processedData.map(d => {
+    return new Promise((resolve, reject) => {
+      const imageObj = new Image();
+      imageObj.onload = () => resolve(imageObj);
+      imageObj.onerror = () => reject();
+      imageObj.src = d.image;
+    });
+  });
+
+  Promise.all(imagePromises)
+    .then(images => {
+      const danceabilityPlot = Plot.plot({
+        width: 1500,
+        height: 500,
+        margin: 50,
+        marks: [
+          Plot.image(processedData, {
+            x: 'danceability',
+            y: 'epoca',
+            width: 20,
+            height: 20,
+            src: d => d.image,
+            title: d => d.danceability,
+            tooltip: d => d.danceability,
+          }),
+        ],
+        y: {
+          domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+          label: null,
+          grid: true,
+        },
+        x: {
+          label: null,
+          domain: [0,1],
+          tickFormat: d => {
+            if (d === 0) return '0';
+            if (d === 0.5) return '0.5';
+            if (d === 1) return '1';
+            return d3.format('.1f')(d);
+          },
+          ticks: [0, 0.5, 1],
+        },
+      });
+
+      d3.select('#danceability1').selectAll('svg').remove();
+      d3.select('#danceability1').append(() => danceabilityPlot);
+    })
+}
+
+function createChartEnergy2() {
+  const imagePromises = processedData.map(d => {
+    return new Promise((resolve, reject) => {
+      const imageObj = new Image();
+      imageObj.onload = () => resolve(imageObj);
+      imageObj.onerror = () => reject();
+      imageObj.src = d.image;
+    });
+  });
+
+  Promise.all(imagePromises)
+    .then(images => {
+      const energyPlot = Plot.plot({
+        width: 1500,
+        height: 500,
+        margin: 50,
+        marks: [
+          Plot.image(processedData, {
+            x: 'energy',
+            y: 'epoca',
+            width: 20,
+            height: 20,
+            src: d => d.image,
+            title: d => d.energy,
+            tooltip: d => d.energy,
+          }),
+        ],
+        y: {
+          domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+          label: null,
+          grid: true,
+        },
+        x: {
+          label: null,
+          domain: [0,1],
+          tickFormat: d => {
+            if (d === 0) return '0';
+            if (d === 0.5) return '0.5';
+            if (d === 1) return '1';
+            return d3.format('.1f')(d);
+          },
+          ticks: [0, 0.5, 1],
+        },
+      });
+
+      d3.select('#energy1').selectAll('svg').remove();
+      d3.select('#energy1').append(() => energyPlot);
+    })
+}
+
+function createChartLoudness2() {
+  const imagePromises = processedData.map(d => {
+    return new Promise((resolve, reject) => {
+      const imageObj = new Image();
+      imageObj.onload = () => resolve(imageObj);
+      imageObj.onerror = () => reject();
+      imageObj.src = d.image;
+    });
+  });
+
+  Promise.all(imagePromises)
+    .then(images => {
+      const loudnessPlot = Plot.plot({
+        width: 1500,
+        height: 500,
+        margin: 50,
+        marks: [
+          Plot.image(processedData, {
+            x: 'loudness',
+            y: 'epoca',
+            width: 20,
+            height: 20,
+            src: d => d.image,
+            title: d => d.loudness,
+            tooltip: d => d.loudness,
+          }),
+        ],
+        y: {
+          domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+          label: null,
+          grid: true,
+        },
+        x: {
+          label: null,
+          domain: [-12, -1],
+          ticks: [-12, -1],
+        },
+      });
+
+      d3.select('#loudness1').selectAll('svg').remove();
+      d3.select('#loudness1').append(() => loudnessPlot);
+    })
+}
+
+function createChartDuration2() {
+  const imagePromises = processedData.map(d => {
+    return new Promise((resolve, reject) => {
+      const imageObj = new Image();
+      imageObj.onload = () => resolve(imageObj);
+      imageObj.onerror = () => reject();
+      imageObj.src = d.image;
+    });
+  });
+
+  Promise.all(imagePromises)
+    .then(images => {
+      const durationPlot = Plot.plot({
+        width: 1500,
+        height: 500,
+        margin: 50,
+        marks: [
+          Plot.image(processedData, {
+            x: d => d.duration / 60000,
+            y: 'epoca',
+            width: 20,
+            height: 20,
+            src: d => d.image,
+            title: d => {
+              const minutes = Math.floor(d.duration / 60000);
+              const seconds = Math.floor((d.duration % 60000) / 1000);
+              return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            },
+            tooltip: d => {
+              const minutes = Math.floor(d.duration / 60000);
+              const seconds = Math.floor((d.duration % 60000) / 1000);
+              return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            },
+          }),
+        ],
+        y: {
+          domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+          label: null,
+          grid: true,
+        },
+        x: {
+          label: null,
+          domain: [1, 6],
+          ticks: [1, 6],
+          tickFormat: 'd',
+        },
+      });
+
+      d3.select('#duration1').selectAll('svg').remove();
+      d3.select('#duration1').append(() => durationPlot);
+    })
+}
+
+function createChartExplicit2() {
+  const imagePromises = processedData.filter(d => d.explicit > 0).map(d => {
+    return new Promise((resolve, reject) => {
+      const imageObj = new Image();
+      imageObj.onload = () => resolve(imageObj);
+      imageObj.onerror = () => reject();
+      imageObj.src = d.image;
+    });
+  });
+
+  Promise.all(imagePromises)
+    .then(images => {
+      const explicitPlot = Plot.plot({
+        width: 1500,
+        height: 500,
+        margin: 50,
+        marks: [
+          Plot.image(processedData.filter(d => d.explicit > 0), {
+            x: (d, i) => (i+1) * 15,
+            y: 'epoca',
+            width: 20,
+            height: 20,
+            src: d => d.image,
+          }),
+        ],
+        y: {
+          domain: ["70s", "80s", "90s", "2000s", "2010s", "2020s"],
+          label: null,
+          grid: true,
+        },
+        x: {
+          label: null,
+          axis: false,
+          domain: [1, 160]
+        },
+      });
+
+      d3.select('#explicit1').selectAll('svg').remove();
+      d3.select('#explicit1').append(() => explicitPlot);
+    })
 }
 
 init();
