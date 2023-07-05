@@ -8,6 +8,29 @@ let nestedData;
 
 let scroller = scrollama();
 
+function init() {
+  setupStickyfill();
+
+  $step = scrolly.selectAll(".step");
+
+  scroller
+    .setup({
+      step: ".step",
+      offset: 0.6,
+      debug: false,
+    })
+    .onStepEnter(handleStepEnter)
+    .onStepExit(handleStepExit);
+
+  window.addEventListener("resize", scroller.resize);
+
+  createChartDanceability();
+  createChartEnergy();
+  createChartLoudness();
+  createChartDuration();
+  createChartExplicit();
+}
+
 d3.csv('input/datasc.csv', d3.autoType).then(data => {
   nestedData = d3.groups(data, d => d.epoca);
   processedData = nestedData.map(([epoca, values]) => {
@@ -58,22 +81,7 @@ function setupStickyfill() {
   });
 }
 
-function init() {
-  setupStickyfill();
 
-  $step = scrolly.selectAll(".step");
-
-  scroller
-    .setup({
-      step: ".step",
-      offset: 0.6,
-      debug: false,
-    })
-    .onStepEnter(handleStepEnter)
-    .onStepExit(handleStepExit);
-
-  window.addEventListener("resize", scroller.resize);
-}
 
 function handleStepProgress(response) {
   console.log(response);
@@ -320,4 +328,4 @@ function createChartExplicit() {
   d3.select('#explicit').append(() => explicit);
 }
 
-
+init();
