@@ -6,7 +6,30 @@ let $step;
 let processedData;
 let nestedData;
 
-let scroller = scrollama();
+const scroller = scrollama();
+
+function init() {
+  setupStickyfill();
+
+  $step = scrolly.selectAll(".step");
+
+  scroller
+  .setup({
+    step: ".step",
+    offset: 0.5,
+    once: true,
+  })
+  .onStepEnter(handleStepEnter);
+
+window.addEventListener("resize", scroller.resize);
+
+  createChartDanceability();
+  createChartEnergy();
+  createChartLoudness();
+  createChartDuration();
+  createChartExplicit();
+
+}
 
 d3.csv('input/datasc.csv', d3.autoType).then(data => {
   nestedData = d3.groups(data, d => d.epoca);
@@ -35,11 +58,24 @@ function handleStepEnter(response) {
   // Ocultar todos los gráficos al inicio
   d3.selectAll(".chart").style("opacity", 0);
 
-  // Mostrar el gráfico actual gradualmente
-  const chartId = `#chart-${index}`;
-  const chartFunction = getChartFunction(index);
-  chartFunction(chartId);
+  // Mostrar el gráfico actual con un retraso de 100ms
+  const currentChartId = `#chart-${index}`;
+  d3.select(currentChartId).style("opacity", 1);
+
+  // Mostrar el gráfico actual como el gráfico fijo (fixed-chart)
+  d3.select(currentChartId).classed("fixed-chart", true);
+
+  // Restablecer el estado de los gráficos anteriores
+  for (let i = 1; i < index; i++) {
+    const previousChartId = `#chart-${i}`;
+    d3.select(previousChartId)
+      .style("opacity", 1) // Ajusta la opacidad a 0 para ocultar los gráficos anteriores
+      .classed("fixed-chart", false);
+  }
 }
+
+
+
 
 function handleStepExit(response) {
   // Restablecer el gráfico anterior cuando se desplaza hacia abajo
@@ -48,9 +84,11 @@ function handleStepExit(response) {
 
   if (index > 1) {
     const previousChartId = `#chart-${index - 1}`;
-    d3.select(previousChartId).style("opacity", 1);
+    d3.select(previousChartId).classed("fixed-chart", false);
   }
 }
+
+
 
 function setupStickyfill() {
   d3.selectAll(".sticky").each(function () {
@@ -58,22 +96,7 @@ function setupStickyfill() {
   });
 }
 
-function init() {
-  setupStickyfill();
 
-  $step = scrolly.selectAll(".step");
-
-  scroller
-    .setup({
-      step: ".step",
-      offset: 0.6,
-      debug: false,
-    })
-    .onStepEnter(handleStepEnter)
-    .onStepExit(handleStepExit);
-
-  window.addEventListener("resize", scroller.resize);
-}
 
 function handleStepProgress(response) {
   console.log(response);
@@ -320,4 +343,4 @@ function createChartExplicit() {
   d3.select('#explicit').append(() => explicit);
 }
 
-
+init();
